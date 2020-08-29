@@ -20,6 +20,28 @@ unsigned char *extractMessage(const unsigned char *message_in, int length) {
     }
 
     // TODO: write your code here
+    int numberOfMessage = length / 8;
+    int line = 0;
+    for (int i = 0; i < numberOfMessage; i++) {
+        unsigned char verify = 0b00000001;
+        for (int k = 0; k < 8; k++) {
+            int j = 8 * i + 7;
+            unsigned char original = 0b00000000;
+            unsigned char smart = 0b10000000;
+            while(j >= 8 * i) {
+                //int index = j - 8 * i;
+                if ((message_in[j] & verify) != 0b00000000) {
+                    original = original | smart;
+                }
+                smart = smart >> 1;
+                j--;
+            }
+        message_out[line] = original;
+        line ++;
+        verify = verify << 1;
+        }
+        
+    }
 
     return message_out;
 }
