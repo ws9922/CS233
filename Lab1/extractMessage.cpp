@@ -29,7 +29,6 @@ unsigned char *extractMessage(const unsigned char *message_in, int length) {
             unsigned char original = 0b00000000;
             unsigned char smart = 0b10000000;
             while(j >= 8 * i) {
-                //int index = j - 8 * i;
                 if ((message_in[j] & verify) != 0b00000000) {
                     original = original | smart;
                 }

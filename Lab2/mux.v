@@ -17,5 +17,9 @@ module mux4(out, A, B, C, D, control);
     output      out;
     input       A, B, C, D;
     input [1:0] control;
+    wire A_B, C_D;
+    mux2 m1(A_B, A, B, control[0]);
+    mux2 m2(C_D, C, D, control[0]);
+    mux2 m3(out, A_B, C_D, control[1]);
 
 endmodule // mux4
