@@ -9,19 +9,21 @@ module alu1_test;
     always #4 carryin = !carryin;
 
    
-    reg [2:0] control = 2;
+    reg [2:0] control = 0;
      
     initial begin
         $dumpfile("alu1.vcd");
         $dumpvars(0, alu1_test);
 
         // control is initially 2
-        # 16 control = 3; // wait 16 time units (why 16?) and then set it to 1
-        # 16 control = 4; // wait 16 time units and then set it to 2
-        # 16 control = 5; // wait 16 time units and then set it to 3
-        # 16 control = 6;
-        # 16 control = 7;
-        # 16 $finish; // wait 16 time units and then end the simulation
+        # 8 control = 1;
+        # 8 control = 2;
+        # 8 control = 3; 
+        # 8 control = 4; 
+        # 8 control = 5; 
+        # 8 control = 6;
+        # 8 control = 7;
+        # 8 $finish; 
     end
 
     wire out, carryout;

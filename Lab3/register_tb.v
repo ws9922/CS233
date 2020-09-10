@@ -23,11 +23,24 @@ module test;
           d = 89;
 
         // Add your own testcases here!
+        # 10
+          reset = 1;
+          enable = 1;
+          d = 22;
+        
+        # 10
+          reset = 1;
+          enable = 0;
+          d = 11;
+
+        # 10
+          reset = 0;
+
+        # 10
+          enable = 1;
+          d = 34;
 
         # 700 $finish;
-    end
-    
-    initial begin
     end
 
     register reg1(q, d, clk, enable, reset);
