@@ -50,6 +50,14 @@ module arraySortCheck_control_test;
 	# 10 go = 0;
   # 20
         // Add your own testcases here!
+  circuit.rf.r[12]  <= 32'd9;
+	circuit.rf.r[13]  <= 32'd6;
+	circuit.rf.r[14]  <= 32'd8;
+	circuit.rf.r[15] <= 32'd6;
+	circuit.rf.r[16] <= 32'd7;
+	# 2 array = 12; length = 4; go = 1;
+	# 10 go = 0;
+  # 20
 
         #10 $finish;
     end
