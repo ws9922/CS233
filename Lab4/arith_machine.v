@@ -46,7 +46,7 @@ module arith_machine(except, clock, reset);
 
     /* add other modules */
     mips_decode n1(rd_src, writeenable, alu_src2, alu_op, except, opcode, funct);
-    mux2v m2(W_addr, Rd, Rt, rd_src);
+    mux2v #(5) m2(W_addr, Rd, Rt, rd_src);
     mux3v m3(rtimmeData, rtData, SignExtender, ZeroExtender, alu_src2);  
     alu32 n5(W_data, , , ,rsData, rtimmeData, alu_op);
     alu32 n6(nextPc, , , , PC, 32'h4, `ALU_ADD);
