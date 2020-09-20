@@ -14,7 +14,7 @@ module mips_decode(rd_src, writeenable, alu_src2, alu_op, except, opcode, funct)
     output [1:0] alu_src2;
     output [2:0] alu_op;
     input  [5:0] opcode, funct;
-    wire r1, r2, r3, an1, an2, an3;
+    wire r1, r2, r3, an1, an2, an3, rtype, an4;
     wire addi = (opcode == `OP_ADDI);
     wire andi = (opcode == `OP_ANDI);
     wire ori = (opcode == `OP_ORI);
@@ -27,7 +27,9 @@ module mips_decode(rd_src, writeenable, alu_src2, alu_op, except, opcode, funct)
     wire xor1 = (funct == `OP0_XOR);
     wire r = (opcode == `OP_OTHER0);
     or or0(rd_src, addi, andi, ori, xori);
-    or or2(writeenable, addi, andi, ori, xori, add1, sub1, and1, or1, nor1, xor1);
+    or or10(rtype, add1, sub1, and1, or1, nor1, xor1);
+    and an4(an4, r, rtype);
+    or or2(writeenable, addi, andi, ori, xori, an4);
     not n1(except, writeenable);
     or or3(alu_src2[1], andi, ori, xori);
     buf b1(alu_src2[0], addi);

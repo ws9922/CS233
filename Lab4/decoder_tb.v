@@ -12,7 +12,7 @@ module decoder_test;
         # 10 opcode = `OP_OTHER0; funct = `OP0_OR;
         # 10 opcode = `OP_OTHER0; funct = `OP0_NOR;
         # 10 opcode = `OP_OTHER0; funct = `OP0_XOR;
-        # 10 opcode = `OP_ADDI;
+        # 10 opcode = `OP_ADDI; funct = `OP_ADDI;
         # 10 opcode = `OP_ANDI;
         # 10 opcode = `OP_ORI;
         # 10 opcode = `OP_XORI;
@@ -21,7 +21,9 @@ module decoder_test;
         # 10 opcode = `OP_LUI;
         # 10 opcode = `OP_OTHER0; funct = `OP_ADDI;
         # 10 opcode = `OP_ANDI; funct = `OP0_OR;
-        # 10 opcode = `OP0_AND; funct = `OP_ADDI;
+        # 10 opcode = `OP0_AND; funct = `OP0_AND;
+        # 10 opcode = `OP0_ADD; funct = `OP0_ADD;
+        # 10 opcode = `OP0_SUB; funct = `OP0_SUB;
         
 
 
