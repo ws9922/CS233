@@ -15,6 +15,38 @@ module decoder_test;
         # 10 opcode = `OP_BEQ; zero = 0; // try a not taken beq
         # 10 opcode = `OP_BEQ; zero = 1; // try a taken beq
         // add more tests here!
+        # 10 opcode = `OP_OTHER0; funct = `OP0_AND;
+        # 10 opcode = `OP_OTHER0; funct = `OP0_OR;
+        # 10 opcode = `OP_OTHER0; funct = `OP0_NOR;
+        # 10 opcode = `OP_OTHER0; funct = `OP0_XOR;
+        # 10 opcode = `OP_ADDI; funct = `OP_ADDI;
+        # 10 opcode = `OP_ANDI;
+        # 10 opcode = `OP_ORI;
+        # 10 opcode = `OP_XORI;
+        # 10 opcode = `OP_OTHER0; funct = `OP_OTHER0;
+        # 10 opcode = `OP_OTHER0; funct = `OP0_MULT;
+        # 10 opcode = `OP_LUI;
+        # 10 opcode = `OP_OTHER0; funct = `OP_ADDI;
+        # 10 opcode = `OP_ANDI; funct = `OP0_OR;
+        # 10 opcode = `OP0_AND; funct = `OP0_AND;
+        # 10 opcode = `OP0_ADD; funct = `OP0_ADD;
+        # 10 opcode = `OP0_SUB; funct = `OP0_SUB;
+        # 10 opcode = `OP_BNE; zero = 0; // try a not taken beq
+        # 10 opcode = `OP_BNE; zero = 1; // try a taken beq
+        # 10 opcode = `OP_BEQ; zero = 0; // try a not taken beq
+        # 10 opcode = `OP_BEQ; zero = 1; // try a taken beq
+        # 10 opcode = `OP_BNE;
+        # 10 opcode = `OP_BEQ;
+        # 10 opcode = `OP_J;
+        # 10 opcode = `OP_OTHER0; funct = `OP0_JR;
+        # 10 opcode = `OP_LUI;
+        # 10 opcode = `OP_OTHER0; funct = `OP0_SLT;
+        # 10 opcode = `OP_LW;
+        # 10 opcode = `OP_LBU;
+        # 10 opcode = `OP_SW;
+        # 10 opcode = `OP_SB;
+        # 10 opcode = `OP_OTHER0; funct = `OP0_ADDM;
+        
 
         # 10 $finish;
     end
