@@ -52,15 +52,15 @@ module mips_decode(alu_op, writeenable, rd_src, alu_src2, except, control_type,
     wire ADDM = (opcode == `OP_OTHER0) & (funct == `OP0_ADDM);
     wire beqjump, bnejump, notzero;
 
-    or or2(writeenable, addi, andi, ori, xori, add1, sub1, and1, or1, nor1, xor1, lui1, slt1, lw, lbu, addm);
-    nor nor1(except, addi, andi, ori, xori, add1, sub1, and1, or1, nor1, xor1, bne, beq, J, JR, lui1, slt1, lw, lbu, sw, sb, addm);
+    or or2(writeenable, addi, andi, ori, xori, add1, sub1, and1, or1, nor1, xor1, lui1, slt1, lw, lbu, ADDM);
+    nor nor1(except, addi, andi, ori, xori, add1, sub1, and1, or1, nor1, xor1, bne, beq, J, JR, lui1, slt1, lw, lbu, sw, sb, ADDM);
     or or0(rd_src, addi, andi, ori, xori, lui1, lw, lbu);
 
-    or or1(alu_src2[0],  addi, lw, lbu, sw, sb);
-    or or3(alu_src2[1], andi, ori, xori);
+    or or1(alu_src2[0],  addi, lw, lbu, sw, sb, ADDM);
+    or or3(alu_src2[1], andi, ori, xori, ADDM);
 
     or or4(alu_op[0], ori, xori, sub1, or1, xor1, beq, bne, slt1);
-    or or5(alu_op[1], sub1, nor1, xor1, add1, addi, xori, beq, bne, slt1, lw, lbu, sw, sb, addm);
+    or or5(alu_op[1], sub1, nor1, xor1, add1, addi, xori, beq, bne, slt1, lw, lbu, sw, sb, ADDM);
     or or6(alu_op[2], and1, or1, nor1, xor1, andi, ori, xori);
 
     buf b1(byte_we, sb);
@@ -69,7 +69,7 @@ module mips_decode(alu_op, writeenable, rd_src, alu_src2, except, control_type,
     buf b4(addm, ADDM);
     buf b5(slt, slt1);
     buf b6(lui, lui1);
-    or or7(mem_read, lw, lbu);
+    or or7(mem_read, lw, lbu, ADDM);
 
     and a1(beqjump, beq, zero);
     not n1(notzero, zero);
