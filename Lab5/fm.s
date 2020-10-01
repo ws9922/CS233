@@ -9,11 +9,11 @@ array: .word 64 512 1024 0x12340000 0x80000000 0x7fffffff 0x0fffffff 0xffffffff
 .text
 main:
     # your test code goes here
-    #addi    $6, $0, 100                    # $6  =   100 (0x64)
-    #addi    $7, $6, 155                    # $7  =   255 (0xff)
-    #add    $8, $6, $6                        # $8  =   200 (0xc8)
-    #sub    $9, $7, $8                        # $9  =    55 (0x37)
-    #sub    $10, $8, $7                        # $10 =   -55 (0xffffffc9)
+    addi    $6, $0, 100                    # $6  =   100 (0x64)
+    addi    $7, $6, 155                    # $7  =   255 (0xff)
+    add    $8, $6, $6                        # $8  =   200 (0xc8)
+    sub    $9, $7, $8                        # $9  =    55 (0x37)
+    sub    $10, $8, $7                        # $10 =   -55 (0xffffffc9)
     add    $11, $8, $6                        # $11 =   300 (0x12c)
     and    $12, $11, $7                    # $12 =    44 (0x2c)
     or    $13, $10, $7                    # $13 =    -1 (0xffffffff)
