@@ -176,7 +176,7 @@ draw_gradient:
      if4:
       mul $s7, $s4, $s5
       bge $s7, 0, if5
-      li $a1, '\'
+      li $a1, '\\'
       jal save_repr
      if5:
       jal repr
