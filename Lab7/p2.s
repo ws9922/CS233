@@ -108,12 +108,14 @@ solve:
         lw $s0, 0($a0)   #$s0 num_rows
         lw $s1, 4($a0)  #$s1 num_cols
         lw $s2, 8($a0)   #$s2 max_dots
+
         sub $t0, $s1, 1   
         bne $a3, $t0, case
         add $s3, $a2, 1  #s3 next_row
         j end_row
         case:
          move $s3, $a2  #s3 next_row
+         
         end_row:
         add $s4, $a3, 1
         rem $s4, $s4, $s1 #s4 next_col
@@ -228,6 +230,7 @@ solve:
          sub $t3, $s1, 1
          lw $t7, 60($sp)
          lbu $t4, 0($t7)
+
          bge $a3, $t3, if2
          bne $t4, $0, if2
          move $a0, $s7
@@ -259,10 +262,10 @@ solve:
         else1:
          add $t1, $s5, $s6
          lw $t5, 52($sp)
-         lw $t6, 56($sp)
+         lw $t7, 60($sp)
          sb $0, 0($t1)
          sb $0, 0($t5)
-         sb $0, 0($t6)
+         sb $0, 0($t7)
 
         if2:
         li $v0, 0
