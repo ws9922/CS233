@@ -15,16 +15,22 @@ module machine(clk, reset);
 
    wire         RegWrite, BEQ, ALUSrc, MemRead, MemWrite, MemToReg, RegDst, MFC0, MTC0, ERET;
    wire         PCSrc, zero, negative;
-   wire [31:0]  rd1_data, rd2_data, B_data, alu_out_data, load_data, wr_data;
+   wire [31:0]  rd1_data, rd2_data, B_data, alu_out_data, wr_data;
 
    //Your extra wires go here
+   wire [29:0] pc_, PC_in, EPC;
+   wire [31:0] handler = 32'h80000180;
+   wire [31:0] wr_data_, c0rd_data, cycle_load_data;
+   wire TakenInterrupt, TimeInterrupt, TimerAddress, NotIO, MemRead_, MemWrite_;
 
-
-   register #(30, 30'h100000) PC_reg(PC[31:2], next_PC[31:2], clk, /* enable */1'b1, reset);
+   register #(30, 30'h100000) PC_reg(PC[31:2], PC_in, clk, /* enable */1'b1, reset);
    assign PC[1:0] = 2'b0;  // bottom bits hard coded to 00
    adder30 next_PC_adder(PC_plus4, PC[31:2], 30'h1);
    adder30 target_PC_adder(PC_target, PC_plus4, imm[29:0]);
    mux2v #(30) branch_mux(next_PC, PC_plus4, PC_target, PCSrc);
+   mux2v #(30) mux1(pc_, next_PC, EPC, ERET);
+   mux2v #(30) mux2(PC_in, pc_, handler[31:2], TakenInterrupt);
+   
    assign PCSrc = BEQ & zero;
 
    instruction_memory imem (inst, PC[31:2]);
@@ -39,12 +45,19 @@ module machine(clk, reset);
    mux2v #(32) imm_mux(B_data, rd2_data, imm, ALUSrc);
    alu32 alu(alu_out_data, zero, negative, ALUOp, rd1_data, B_data);
 
-   data_mem data_memory(load_data, alu_out_data, rd2_data, MemRead, MemWrite, clk, reset);
+   and a1(MemRead_, MemRead, NotIO);
+   and a2(MemWrite_, MemWrite, NotIO);
+   data_mem data_memory(cycle_load_data, alu_out_data, rd2_data, MemRead_, MemWrite_, clk, reset);
 
-   mux2v #(32) wb_mux(wr_data, alu_out_data, load_data, MemToReg);
+   mux2v #(32) wb_mux(wr_data_, alu_out_data, cycle_load_data, MemToReg);
+   mux2v #(32) mux3(wr_data, wr_data_, c0rd_data, MFC0);
    mux2v #(5) rd_mux(wr_regnum, rt, rd, RegDst);
    
    //Connect your new modules below
-   
+   cp0 cp(c0rd_data, EPC, TakenInterrupt, rd2_data, rd, next_PC, MTC0, ERET, TimeInterrupt, clk, reset);
+   timer tr(TimeInterrupt, cycle_load_data, TimerAddress, rd2_data, alu_out_data, MemRead, MemWrite, clk, reset);
+   not n1(NotIO, TimerAddress);
+
+
 
 endmodule // machine
