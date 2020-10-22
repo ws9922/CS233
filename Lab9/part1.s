@@ -48,6 +48,79 @@ main:
 	    mtc0    $t4, $12
 
 #Fill in your code here
+        li $t0, 52
+        sw $t0, ANGLE
+        li $t0, 1
+        sw $t0, ANGLE_CONTROL
+        sw $t0, VELOCITY
+        
+        li $t1, 0
+loop0:
+        bgt $t1, 300000, end_loop0
+        sw $0, PICKUP
+        add $t1, $t1, 1
+        j loop0
+end_loop0:
+        li $t0, 150
+        sw $t0, ANGLE
+        li $t0, 1
+        sw $t0, ANGLE_CONTROL
+
+        li $t1, 0
+loop1:
+        bgt $t1, 100000, end_loop1
+        sw $0, PICKUP
+        add $t1, $t1, 1
+        j loop1
+end_loop1:
+        li $t0, 180
+        sw $t0, ANGLE
+        sw $0, ANGLE_CONTROL
+
+        li $t1, 0
+loop2:
+        bgt $t1, 100000, end_loop2
+        sw $0, PICKUP
+        add $t1, $t1, 1
+        j loop2
+end_loop2:
+        li $t0, 32
+        sw $t0, ANGLE
+        li $t0, 1
+        sw $t0, ANGLE_CONTROL
+
+        li $t1, 0
+loop3:
+        bgt $t1, 200000, end_loop3
+        sw $0, PICKUP
+        add $t1, $t1, 1
+        j loop3
+end_loop3:
+        li $t0, 232
+        sw $t0, ANGLE
+        li $t0, 1
+        sw $t0, ANGLE_CONTROL
+
+        li $t1, 0
+loop4:
+        bgt $t1, 150000, end_loop4
+        sw $0, PICKUP
+        add $t1, $t1, 1
+        j loop4
+end_loop4:
+
+        sw $t0, ANGLE_CONTROL
+        sw $0, VELOCITY
+        lw $t1, BOT_X
+        lw $t2, BOT_Y
+        #lw $t1, TIMER
+        li      $v0, PRINT_INT       # Unhandled interrupt types
+        move $a0, $t1
+        syscall
+
+
+
+
 
 infinite:
         j       infinite              # Don't remove this! If this is removed, then your code will not be graded!!!
@@ -91,6 +164,12 @@ interrupt_dispatch:                     # Interrupt:
 bonk_interrupt:
         sw      $0, BONK_ACK
 #Fill in your code here
+        lw $t1, BOT_X
+        lw $t2, BOT_Y
+        #lw $t1, TIMER
+        li      $v0, PRINT_INT       # Unhandled interrupt types
+        move $a0, $t1
+        syscall
         j       interrupt_dispatch      # see if other interrupts are waiting
 
 request_puzzle_interrupt:
@@ -101,6 +180,9 @@ request_puzzle_interrupt:
 timer_interrupt:
         sw      $0, TIMER_ACK
 #Fill in your code here
+        lw $t1, BOT_X
+        lw $t2, BOT_Y
+        sw $t0, PICKUP
         j   interrupt_dispatch
 non_intrpt:                             # was some non-interrupt
         li      $v0, PRINT_STRING
