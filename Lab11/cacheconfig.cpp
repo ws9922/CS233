@@ -7,7 +7,7 @@ CacheConfig::CacheConfig(uint32_t size, uint32_t block_size, uint32_t associativ
    * TODO
    * Compute and set `_num_block_offset_bits`, `_num_index_bits`, `_num_tag_bits`.
   */ 
-  uint32_t sets = (_size / _associativity) / block_size;
+  uint32_t sets = (_size / _block_size) / _associativity;
   _num_block_offset_bits = log_2(_block_size);
   _num_index_bits = log_2(sets);
   _num_tag_bits = 32 - _num_block_offset_bits - _num_index_bits;

@@ -82,9 +82,8 @@ uint32_t CacheSimulator::read_access(uint32_t address) const {
   if (block == NULL){
     block = bring_block_into_cache(address);
   }
-  uint32_t lru = block->get_last_used_time();
-  block->set_last_used_time(lru + 1);
   _use_clock++;
+  block->set_last_used_time(_use_clock.get_count());
   uint32_t block_offset = extract_block_offset(address, _cache->get_config());
   return block->read_word_at_offset(block_offset);
 }
@@ -112,9 +111,8 @@ void CacheSimulator::write_access(uint32_t address, uint32_t word) const {
       return;
     } 
   }
-  uint32_t lru = block->get_last_used_time();
-  block->set_last_used_time(lru + 1);
   _use_clock++;
+  block->set_last_used_time(_use_clock.get_count());
   uint32_t block_offset = extract_block_offset(address, _cache->get_config());
   block->write_word_at_offset(word, block_offset);
   if(_policy.is_write_back()){
