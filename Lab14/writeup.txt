@@ -1,0 +1,2 @@
+Our team's strategy is to let our spimbots choose a random angel to turn when they bonk. At first, we only provided 4 random directions for Spimbots to choose, which led spambots to stick into corners. After optimization, we provide 12 random directions, which increased the flexibility of Spimbots. 
+Our team's main goal focuses on the collection of kernels by maipnbots while ignoring the minibots and puzzles, which increases the efficiency of collection at the largest.

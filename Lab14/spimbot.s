@@ -50,6 +50,22 @@ main:
 	    mtc0    $t4, $12
 
 #Fill in your code here
+        li $t0,0
+        li $a0,1
+        sw $a0,VELOCITY
+        li $a0,45
+        sw $a0,ANGLE
+        li $a0,1
+        sw $a0, ANGLE_CONTROL
+        loop0:
+        bgt $t1, 30000000, end_loop0
+        sw $0, PICKUP
+        add $t1, $t1, 1
+        j loop0
+
+        end_loop0:
+        sw $0, VELOCITY
+       
 
 infinite:
         j       infinite              # Don't remove this! If this is removed, then your code will not be graded!!!
@@ -93,6 +109,141 @@ interrupt_dispatch:                     # Interrupt:
 bonk_interrupt:
         sw      $0, BONK_ACK
 #Fill in your code here
+        rem $t1,$t0,12
+        beq $t1,0,first
+        beq $t1,1,second
+        beq $t1,2,third
+        beq $t1,4,fourth
+        beq $t1,5,fifth
+        beq $t1,6,sixth
+        beq $t1,7,seventh
+        beq $t1,8,eight
+        beq $t1,9,nine
+        beq $t1,10,eleven
+        beq $t1,11,twelve
+
+
+        first:
+        li $a0,30
+        sw $a0,0xffff0014
+        li $a0,1
+        sw $a0,0xffff0018
+        li $a0,10
+        sw $a0,0xffff0010
+        add $t0,$t0,2
+        j       interrupt_dispatch 
+
+        second:
+        li $a0,60
+        sw $a0,0xffff0014
+        li $a0,1
+        sw $a0,0xffff0018
+        li $a0,10
+        sw $a0,0xffff0010
+        add $t0,$t0,3
+        j       interrupt_dispatch 
+
+        third:
+        li $a0,240
+        sw $a0,0xffff0014
+        li $a0,1
+        sw $a0,0xffff0018
+        li $a0,10
+        sw $a0,0xffff0010
+        add $t0,$t0,1
+        j       interrupt_dispatch 
+
+        fourth:
+        li $a0,330
+        sw $a0,0xffff0014
+        li $a0,1
+        sw $a0,0xffff0018
+        li $a0,10
+        sw $a0,0xffff0010
+        add $t0,$t0,1
+
+        fifth:
+        li $a0,150
+        sw $a0,0xffff0014
+        li $a0,1
+        sw $a0,0xffff0018
+        li $a0,10
+        sw $a0,0xffff0010
+        add $t0,$t0,1
+        j       interrupt_dispatch 
+        
+        sixth:
+        li $a0,300
+        sw $a0,0xffff0014
+        li $a0,1
+        sw $a0,0xffff0018
+        li $a0,10
+        sw $a0,0xffff0010
+        add $t0,$t0,1
+        j       interrupt_dispatch 
+        
+        seventh:
+        li $a0,90
+        sw $a0,0xffff0014
+        li $a0,1
+        sw $a0,0xffff0018
+        li $a0,10
+        sw $a0,0xffff0010
+        add $t0,$t0,1
+        j       interrupt_dispatch 
+
+        eight:
+        li $a0,160
+        sw $a0,0xffff0014
+        li $a0,1
+        sw $a0,0xffff0018
+        li $a0,10
+        sw $a0,0xffff0010
+        add $t0,$t0,1
+        j       interrupt_dispatch 
+
+        nine:
+        li $a0,270
+        sw $a0,0xffff0014
+        li $a0,1
+        sw $a0,0xffff0018
+        li $a0,10
+        sw $a0,0xffff0010
+        add $t0,$t0,1
+        j       interrupt_dispatch 
+
+        ten:
+        li $a0,180
+        sw $a0,0xffff0014
+        li $a0,1
+        sw $a0,0xffff0018
+        li $a0,10
+        sw $a0,0xffff0010
+        add $t0,$t0,1
+        j       interrupt_dispatch
+
+        eleven:
+        li $a0,90
+        sw $a0,0xffff0014
+        li $a0,1
+        sw $a0,0xffff0018
+        li $a0,10
+        sw $a0,0xffff0010
+        add $t0,$t0,1
+        j       interrupt_dispatch 
+
+        twelve:
+        li $a0,240
+        sw $a0,0xffff0014
+        li $a0,1
+        sw $a0,0xffff0018
+        li $a0,10
+        sw $a0,0xffff0010
+        add $t0,$t0,1
+
+
+
+
         j       interrupt_dispatch      # see if other interrupts are waiting
 
 request_puzzle_interrupt:
